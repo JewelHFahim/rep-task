@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { AiOutlineClose, AiOutlineMenuUnfold, AiOutlineShoppingCart } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiOutlineMenuUnfold,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,20 +16,16 @@ const Navbar = () => {
     },
     {
       title: "Shop",
-      url: "/",
+      url: "/shop",
     },
     {
       title: "About",
-      url: "/",
+      url: "/about",
     },
     {
       title: "Contact",
-      url: "/",
-    },
-    {
-      title: "Cart",
-      url: "/",
-    },
+      url: "/contact",
+    }
   ];
 
   const toggleMenu = () => {
@@ -35,10 +36,10 @@ const Navbar = () => {
     <nav className="relative bg-white shadow dark:bg-gray-800">
       <div className=" px-16 py-4 mx-auto md:flex md:justify-between md:items-center">
         <div className="flex items-center justify-between">
-          <a href="#" className="text-2xl font-medium">
+          <Link to="/" className="text-2xl font-bold">
             <span className="text-3xl font-bold text-blue-800">R</span>
             <span className="text-gray-600">epliq</span>
-          </a>
+          </Link>
 
           <div className="flex lg:hidden">
             <button
@@ -47,7 +48,7 @@ const Navbar = () => {
               className="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400 text-xl"
               aria-label="toggle menu"
             >
-              {isOpen ? <AiOutlineClose /> : <AiOutlineMenuUnfold /> }
+              {isOpen ? <AiOutlineClose /> : <AiOutlineMenuUnfold />}
             </button>
           </div>
         </div>
@@ -62,26 +63,27 @@ const Navbar = () => {
         >
           <div className="flex flex-col md:flex-row md:mx-6">
             {menus.map((menu, i) => (
-              <a
+              <Link
+                to={menu.url}
                 key={i}
                 className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
                 href="#"
               >
                 {menu.title}
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className="flex justify-center md:block">
-            <a
+            <Link
               className="relative text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
-              href="#"
+              to="/cart"
             >
-              <AiOutlineShoppingCart className="text-xl"/>
-
+              <AiOutlineShoppingCart className="text-xl" />
               <span className="absolute top-0 left-0 p-1 text-xs text-white bg-blue-500 rounded-full"></span>
-            </a>
+            </Link>
           </div>
+          
         </div>
       </div>
     </nav>
