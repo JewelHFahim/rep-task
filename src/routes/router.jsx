@@ -9,6 +9,9 @@ import Shop from "../pages/shop/Shop";
 import About from "../pages/About/About";
 import Contact from "../pages/contact/Contact";
 import SecondaryLayout from "../layout/SecondaryLayout";
+import DashboardLayout from "../layout/DashboardLayout";
+import Dashboard from "../pages/dashboard/Dashboard";
+import AddProducts from "../pages/dashboard/AddProducts";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +49,22 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <Cart />,
       },
+    ],
+  },
+
+  // Dashboard
+  {
+    path: "/",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/addproduct",
+        element: <AddProducts />,
+      }
     ],
   },
 

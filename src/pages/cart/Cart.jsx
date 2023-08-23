@@ -86,7 +86,7 @@ const Cart = () => {
                           <input
                             className="mx-2 border text-center w-5 lg:w-8 text-gray-600 dark:text-gray-100 bg-gray-100 dark:bg-gray-800"
                             type="text"
-                            value={product.quantity}
+                            defaultValue={product.quantity}
                           />
 
                           <button onClick={() => dispatch(addToCart(product))}>
