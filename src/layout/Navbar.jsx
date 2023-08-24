@@ -5,6 +5,7 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import LoginBtn from "../utils/LoginBtn";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,7 +55,7 @@ const Navbar = () => {
         </div>
 
         <div
-          className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:bg-transparent md:w-auto md:opacity-100 flex flex-col lg:flex-row 
+          className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 md:mt-0 md:p-0 md:top-0 md:relative md:bg-transparent md:w-auto md:opacity-100 flex flex-col lg:flex-row items-center
           ${
             isOpen
               ? "translate-x-0 opacity-100"
@@ -82,6 +83,11 @@ const Navbar = () => {
               <AiOutlineShoppingCart className="text-xl" />
               <span className="absolute top-0 left-0 p-1 text-xs text-white bg-blue-500 rounded-full"></span>
             </Link>
+          </div>
+
+          <div className="ml-8 flex gap-2">
+            <Link to="/login"><LoginBtn>Login</LoginBtn></Link>
+            <LoginBtn>Logout</LoginBtn>
           </div>
           
         </div>

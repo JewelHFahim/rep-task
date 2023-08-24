@@ -12,6 +12,8 @@ import SecondaryLayout from "../layout/SecondaryLayout";
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/Dashboard";
 import AddProducts from "../pages/dashboard/AddProducts";
+import AllProducts from "../pages/dashboard/AllProducts";
+import UpdateProduct from "../pages/dashboard/UpdateProduct";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +66,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/addproduct",
         element: <AddProducts />,
+      },
+      {
+        path: "/dashboard/allproducts",
+        element: <AllProducts />,
+      },
+      {
+        path: "/dashboard/updateproduct/:id",
+        element: <UpdateProduct />,
       }
     ],
   },

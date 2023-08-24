@@ -1,28 +1,29 @@
 import { useForm } from "react-hook-form";
-import { usePostProductMutation } from "../../redux/features/api/apiSlice";
-import { toast } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
-import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
-import SubmitBtn from "../../utils/SubmitBtn";
-import BackBtn from "../../utils/BackBtn";
 
-const AddProducts = () => {
-  const [postProduct] = usePostProductMutation();
+import {
+  useGetSingleProductQuery,
+  useUpdateProductMutation,
+} from "../../redux/features/api/apiSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import BackBtn from "../../utils/BackBtn";
+import SubmitBtn from "../../utils/SubmitBtn";
+
+const UpdateProduct = () => {
+  const { id } = useParams();
+  const [updateProduct] = useUpdateProductMutation();
+  const { data: product } = useGetSingleProductQuery(id);
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data, event) => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data, event) => {
     event.preventDefault();
     const form = event.target;
-    postProduct(data);
-    console.log(data);
-    toast.success("Added Product");
+
+    const res = await updateProduct({ id, data });
+    console.log(res);
     form.reset();
-    navigate("/dashboard");
+    navigate("/dashboard/allproducts");
   };
 
   const inputFields = [
@@ -30,31 +31,31 @@ const AddProducts = () => {
       label: "Product Title",
       type: "text",
       field: "title",
-      error: errors.field,
+      default: product?.title,
     },
     {
       label: "Category",
       type: "text",
       field: "category",
-      error: errors.field,
+      default: product?.category,
     },
     {
       label: "Price",
       type: "text",
       field: "price",
-      error: errors.field,
+      default: product?.price,
     },
     {
       label: "Quantity",
       type: "number",
       field: "quantity",
-      error: errors.field,
+      default: product?.quantity,
     },
     {
       label: " Image Link",
       type: "text",
       field: "image",
-      error: errors.field,
+      default: product?.image,
     },
   ];
 
@@ -67,21 +68,19 @@ const AddProducts = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-
             {inputFields.map((item, i) => (
               <div key={i}>
                 <label className="text-gray-700 dark:text-gray-200">
                   {item.label}
                 </label>
                 <input
-                  {...register(item.field, { required: true })}
+                  {...register(item.field)}
+                  defaultValue={item.default}
                   type={item.title}
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                 />
-                {item.error && <span>This field is required</span>}
               </div>
             ))}
-
           </div>
 
           {/* Submit Button */}
@@ -101,4 +100,4 @@ const AddProducts = () => {
   );
 };
 
-export default AddProducts;
+export default UpdateProduct;

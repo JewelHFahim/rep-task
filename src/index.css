@@ -4,3 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.react-tel-input .form-control {
+    background: transparent !important;
+    border: 1px solid #5b5b5b3b;
+    border-radius: 5px;
+    width: 100% !important;
+    outline: none;
+    padding: 10px 50px !important;
+    color: rgb(255, 255, 255);
+}

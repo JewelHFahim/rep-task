@@ -33,8 +33,8 @@ const DashboardMenu = () => {
     },
     {
       icon: <BsBoxes />,
-      title: "Products",
-      url: "/dashboard"
+      title: "All Products",
+      url: "/dashboard/allproducts"
     },
     {
       icon: <FaUsers />,

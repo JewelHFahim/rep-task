@@ -26,6 +26,16 @@ export const apiSlice = createApi({
       invalidatesTags: ["product"],
     }),
 
+    updateProduct: builder.mutation({
+      query: ({ id, data }) => ({
+        method: "PUT",
+        url: `/products/${id}`,
+        body: data,
+      }),
+      invalidatesTags: ["product"],
+    }),
+ 
+
     deleteProduct: builder.mutation({
       query(id) {
         return {
@@ -36,22 +46,14 @@ export const apiSlice = createApi({
       invalidatesTags: ["product"],
     }),
 
-    // pc builder apis
-    allProduct: builder.query({
-      query: () => `/pcbuilder`,
-      providesTags: ["product"],
-    }),
-
-
-
-
   }),
 });
 
 export const {
+  useUpdateProductMutation,
   useGetProductsQuery,
   usePostProductMutation,
   useDeleteProductMutation,
   useGetSingleProductQuery,
-  useAllProductQuery
+  useAllProductQuery,
 } = apiSlice;
