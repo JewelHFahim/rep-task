@@ -3,9 +3,51 @@ import logo from "../../assets/logo.png";
 import { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import {
+  usePostUserMutation,
+} from "../../redux/features/api/apiSlice";
+import { addUser } from "../../redux/features/user/userSlice";
+import { useDispatch } from "react-redux";
+import login from "../../assets/Login.jpg";
+import { sigin_input_style } from "../../utils/SomeClass";
 
 const Signin = () => {
+  // const {data: users} = useGetUsersQuery();
+  const [postUser] = usePostUserMutation();
   const [phone, setPhone] = useState("");
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+    const form = event.target;
+
+    const userinfo = {
+      name: data.name,
+      email: data.email,
+      image: data.image,
+      phone: phone,
+      password: data.password,
+      role: "user",
+    };
+    postUser(userinfo);
+    // dispatch(addUser(userinfo));
+    console.log(userinfo);
+
+    toast.success("Added Product");
+    form.reset();
+    navigate("/");
+  };
 
   return (
     <section>
@@ -26,6 +68,7 @@ const Signin = () => {
             Welcome back!
           </p>
 
+          {/* google */}
           <a
             href="#"
             className="flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -52,68 +95,102 @@ const Signin = () => {
             <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
           </div>
 
-          <div className="mt-4">
-            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-              Name
-            </label>
-            <input
-              id="LoggingEmailAddress"
-              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
-              type="email"
-            />
-          </div>
+          {/* Form */}
+          <form onSubmit={handleSubmit(onSubmit)}>
 
-          <div className="mt-4">
-            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-              Email Address
-            </label>
-            <input
-              id="LoggingEmailAddress"
-              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
-              type="email"
-            />
-          </div>
-
-          <div className="mt-4">
-            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-              Phone Number
-            </label>
-
-            <PhoneInput
-              country={"bd"}
-              enableSearch={true}
-              value={phone}
-              onChange={(phone) => setPhone(phone)}
-            />
-          </div>
-
-          <div className="mt-4">
-            <div className="flex justify-between">
+            {/* Name */}
+            <div className="mt-4">
               <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-                Password
+                Name
               </label>
-              <a
-                href="#"
-                className="text-xs text-gray-500 dark:text-gray-300 hover:underline"
-              >
-                Forget Password?
-              </a>
+              <input
+                {...register("name", { required: true })}
+                className={sigin_input_style}
+                type="text"
+              />
+              {errors.name && (
+                <span className="text-xs text-red-300">Name Required</span>
+              )}
             </div>
 
-            <input
-              id="loggingPassword"
-              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
-              type="password"
-            />
-          </div>
+            {/* Email */}
+            <div className="mt-4">
+              <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
+                Email Address
+              </label>
+              <input
+                {...register("email", { required: true })}
+                className={sigin_input_style}
+                type="email"
+              />
+              {errors.email && (
+                <span className="text-xs text-red-300">Email Required</span>
+              )}
+            </div>
 
-          <div className="mt-6">
-            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-              Sign Up
-            </button>
-          </div>
+            {/* Image */}
+            <div className="mt-4">
+              <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
+                Image Link
+              </label>
+              <input
+                {...register("image", { required: true })}
+                className={sigin_input_style}
+                type="text"
+              />
+              {errors.image && (
+                <span className="text-xs text-red-300">
+                  Image Link Required
+                </span>
+              )}
+            </div>
 
-          <div className="flex items-center justify-between mt-4">
+            {/* Phone */}
+            <div className="mt-4">
+              <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
+                Phone Number
+              </label>
+
+              <PhoneInput
+                country={"bd"}
+                enableSearch={true}
+                value={phone}
+                onChange={(phone) => setPhone(phone)}
+              />
+            </div>
+
+            {/* Password */}
+            <div className="mt-4">
+              <div className="">
+                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
+                  Password
+                </label>
+              </div>
+
+              <input
+                {...register("password", { required: true })}
+                className={sigin_input_style}
+                type="password"
+              />
+              {errors.password && (
+                <span className="text-xs text-red-300">Password Required</span>
+              )}
+            </div>
+
+            {/* Submit Buttun */}
+            <div className="mt-2">
+              <button
+                type="submit"
+                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+              >
+                Sign Up
+              </button>
+            </div>
+
+            
+          </form>
+
+          <div className="flex items-center justify-between mt-">
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
 
             <a

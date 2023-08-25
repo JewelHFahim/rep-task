@@ -2,13 +2,13 @@ import { useState } from "react";
 import {
   useDeleteProductMutation,
   useGetProductsQuery,
-} from "../../redux/features/api/apiSlice";
+} from "../../../redux/features/api/apiSlice";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import PrevBtn from "../../utils/PrevBtn";
-import NextBtn from "../../utils/NextBtn";
-import { deleteBtn, view_edit } from "../../utils/SomeClass";
+import PrevBtn from "../../../utils/PrevBtn";
+import NextBtn from "../../../utils/NextBtn";
+import { deleteBtn, view_edit } from "../../../utils/SomeClass";
 
 const AllProducts = () => {
   const { data } = useGetProductsQuery();

@@ -4,7 +4,7 @@ const BackBtn = ({ children }) => {
   return (
     <>
       <button className="text-bold text-lg text-blue-800 flex items-center gap-2">
-        <HiOutlineArrowNarrowLeft className="text-xl" /> Back To Pooducts
+        <HiOutlineArrowNarrowLeft className="text-xl" /> {children}
       </button>
     </>
   );

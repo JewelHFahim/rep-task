@@ -6,9 +6,11 @@ import {
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import LoginBtn from "../utils/LoginBtn";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { phone, role } = useSelector((state) => state.user);
 
   const menus = [
     {
@@ -26,11 +28,16 @@ const Navbar = () => {
     {
       title: "Contact",
       url: "/contact",
-    }
+    },
   ];
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload()
   };
 
   return (
@@ -86,10 +93,22 @@ const Navbar = () => {
           </div>
 
           <div className="ml-8 flex gap-2">
-            <Link to="/login"><LoginBtn>Login</LoginBtn></Link>
-            <LoginBtn>Logout</LoginBtn>
+            {phone ? (
+              <button onClick={() => handleLogout()}>
+                <LoginBtn>Logout</LoginBtn>
+              </button>
+            ) : (
+              <Link to="/login">
+                <LoginBtn>Login</LoginBtn>
+              </Link>
+            )}
+
+            {role === "admin" && (
+              <Link to="/dashboard">
+                <LoginBtn>Dashboard</LoginBtn>
+              </Link>
+            )}
           </div>
-          
         </div>
       </div>
     </nav>

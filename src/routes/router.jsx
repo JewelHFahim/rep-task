@@ -11,9 +11,15 @@ import Contact from "../pages/contact/Contact";
 import SecondaryLayout from "../layout/SecondaryLayout";
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/Dashboard";
-import AddProducts from "../pages/dashboard/AddProducts";
-import AllProducts from "../pages/dashboard/AllProducts";
-import UpdateProduct from "../pages/dashboard/UpdateProduct";
+import AllUsers from "../pages/dashboard/Users/AllUsers";
+import AddUser from "../pages/dashboard/Users/AddUser";
+import UpdateUser from "../pages/dashboard/Users/UpdateUser";
+import ViewDetails from "../pages/dashboard/Users/ViewDetails";
+import AllProducts from "../pages/dashboard/products/AllProducts";
+import AddProducts from "../pages/dashboard/products/AddProducts";
+import UpdateProduct from "../pages/dashboard/products/UpdateProduct";
+import PrivateRouter from "./PrivateRoute";
+import Test from "../Test";
 
 const router = createBrowserRouter([
   {
@@ -57,12 +63,18 @@ const router = createBrowserRouter([
   // Dashboard
   {
     path: "/",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRouter>
+        <DashboardLayout />
+      </PrivateRouter>
+    ),
     children: [
       {
         path: "/dashboard",
         element: <Dashboard />,
       },
+
+      // Products
       {
         path: "/dashboard/addproduct",
         element: <AddProducts />,
@@ -74,7 +86,25 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/updateproduct/:id",
         element: <UpdateProduct />,
-      }
+      },
+
+      // Users
+      {
+        path: "/dashboard/users",
+        element: <AllUsers />,
+      },
+      {
+        path: "/dashboard/adduser",
+        element: <AddUser />,
+      },
+      {
+        path: "/dashboard/updateuser/:id",
+        element: <UpdateUser />,
+      },
+      {
+        path: "/dashboard/userdetails/:id",
+        element: <ViewDetails />,
+      },
     ],
   },
 
@@ -85,6 +115,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signin />,
+  },
+  {
+    path: "/test",
+    element: <Test />,
   },
 ]);
 

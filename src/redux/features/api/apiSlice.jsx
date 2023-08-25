@@ -6,7 +6,7 @@ export const apiSlice = createApi({
   tagTypes: ["product"],
 
   endpoints: (builder) => ({
-
+    // Products Api
     getProducts: builder.query({
       query: () => `/products`,
       providesTags: ["product"],
@@ -34,7 +34,6 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["product"],
     }),
- 
 
     deleteProduct: builder.mutation({
       query(id) {
@@ -46,6 +45,44 @@ export const apiSlice = createApi({
       invalidatesTags: ["product"],
     }),
 
+    // Users Api
+    getUsers: builder.query({
+      query: () => `/users`,
+      providesTags: ["product"],
+    }),
+
+    getSingleUser: builder.query({
+      query: (id) => `/user/${id}`,
+      providesTags: ["product"],
+    }),
+
+    postUser: builder.mutation({
+      query: (data) => ({
+        url: `/user`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["product"],
+    }),
+
+    updateUser: builder.mutation({
+      query: ({ id, data }) => ({
+        method: "PUT",
+        url: `/user/${id}`,
+        body: data,
+      }),
+      invalidatesTags: ["product"],
+    }),
+
+    deleteUser: builder.mutation({
+      query(id) {
+        return {
+          url: `/user/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["product"],
+    }),
   }),
 });
 
@@ -56,4 +93,9 @@ export const {
   useDeleteProductMutation,
   useGetSingleProductQuery,
   useAllProductQuery,
+  useGetUsersQuery,
+  useGetSingleUserQuery,
+  usePostUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
 } = apiSlice;

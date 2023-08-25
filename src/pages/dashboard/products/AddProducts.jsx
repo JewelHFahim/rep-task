@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
-import { usePostProductMutation } from "../../redux/features/api/apiSlice";
+import { usePostProductMutation } from "../../../redux/features/api/apiSlice";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
-import SubmitBtn from "../../utils/SubmitBtn";
-import BackBtn from "../../utils/BackBtn";
+import SubmitBtn from "../../../utils/SubmitBtn";
+import BackBtn from "../../../utils/BackBtn";
 
 const AddProducts = () => {
   const [postProduct] = usePostProductMutation();
@@ -67,7 +66,6 @@ const AddProducts = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-
             {inputFields.map((item, i) => (
               <div key={i}>
                 <label className="text-gray-700 dark:text-gray-200">
@@ -81,7 +79,6 @@ const AddProducts = () => {
                 {item.error && <span>This field is required</span>}
               </div>
             ))}
-
           </div>
 
           {/* Submit Button */}
@@ -91,11 +88,10 @@ const AddProducts = () => {
         </form>
 
         <div className="w-1/3">
-          <Link to="/dashboard/allproducts" >
-            <BackBtn />
+          <Link to="/dashboard/allproducts">
+            <BackBtn>To Products</BackBtn>
           </Link>
         </div>
-
       </section>
     </div>
   );

@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
-
 import {
   useGetSingleProductQuery,
   useUpdateProductMutation,
-} from "../../redux/features/api/apiSlice";
+} from "../../../redux/features/api/apiSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import BackBtn from "../../utils/BackBtn";
-import SubmitBtn from "../../utils/SubmitBtn";
+import BackBtn from "../../../utils/BackBtn";
+import SubmitBtn from "../../../utils/SubmitBtn";
+import { sigin_input_style } from "../../../utils/SomeClass";
 
 const UpdateProduct = () => {
   const { id } = useParams();
@@ -19,7 +19,6 @@ const UpdateProduct = () => {
   const onSubmit = async (data, event) => {
     event.preventDefault();
     const form = event.target;
-
     const res = await updateProduct({ id, data });
     console.log(res);
     form.reset();
@@ -77,7 +76,7 @@ const UpdateProduct = () => {
                   {...register(item.field)}
                   defaultValue={item.default}
                   type={item.title}
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                  className={sigin_input_style}
                 />
               </div>
             ))}
@@ -90,11 +89,10 @@ const UpdateProduct = () => {
         </form>
 
         <div className="w-1/3">
-          <Link to="/dashboard/allproducts" >
-            <BackBtn />
+          <Link to="/dashboard/allproducts">
+            <BackBtn>Back To Products</BackBtn>
           </Link>
         </div>
-
       </section>
     </div>
   );

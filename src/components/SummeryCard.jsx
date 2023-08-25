@@ -1,19 +1,23 @@
 import { RiFileList2Line } from "react-icons/ri";
 import { BsBoxSeam } from "react-icons/bs";
 import { FiEye, FiMail } from "react-icons/fi";
+import { useGetProductsQuery, useGetUsersQuery } from "../redux/features/api/apiSlice";
 
 const SummeryCard = () => {
 
+  const { data: products} = useGetProductsQuery();
+  const { data: users} = useGetUsersQuery();
+
   const datas = [
     {
-      title: "Daily Orders",
-      total: 83,
+      title: "Total Products",
+      total: products?.data?.length,
       icon: <BsBoxSeam />,
       bgcolor: "#68ae00",
     },
     {
       title: "Registered Users",
-      total: 83,
+      total: users?.data?.length,
       icon: <RiFileList2Line />,
       bgcolor: "#fc8213",
     },
@@ -25,7 +29,7 @@ const SummeryCard = () => {
     },
     {
       title: "New Messages",
-      total: 83,
+      total: 1,
       icon: <FiMail />,
       bgcolor: "#17A589",
     },

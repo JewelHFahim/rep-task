@@ -9,12 +9,12 @@ import { FaUsers } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDrawer } from "../redux/features/menu/menuSlice";
 import { Link } from "react-router-dom";
-import { FiPlus } from "react-icons/fi";
 // import { addLogout } from "../../../redux/feature/userSlice";
 
 const DashboardMenu = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.menu.isOpen);
+  
 
   const handleToggleDrawer = () => {
     dispatch(toggleDrawer());
@@ -27,19 +27,14 @@ const DashboardMenu = () => {
       url: "/dashboard"
     },
     {
-      icon: <FiPlus />,
-      title: "Add Product",
-      url: "/dashboard"
-    },
-    {
       icon: <BsBoxes />,
       title: "All Products",
       url: "/dashboard/allproducts"
     },
     {
       icon: <FaUsers />,
-      title: "Users",
-      url: "/dashboard"
+      title: "All Users",
+      url: "/dashboard/users"
     },
     {
       icon: <AiFillSetting />,
@@ -53,16 +48,18 @@ const DashboardMenu = () => {
     },
     
   ];
-
+const handleLogout = () => {
+  localStorage.clear();
+  window.location.reload()
+}
   return (
     <>
       <Drawer
         open={isOpen}
         onClose={handleToggleDrawer}
         direction="left"
-        E
-        className=""
       >
+
         <div>
           <aside className="flex flex-col w-64 h-screen px-4 py-6 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
             <a href="#" className="flex items-end text-3xl">
@@ -71,8 +68,6 @@ const DashboardMenu = () => {
             </a>
 
             <div className="flex flex-col justify-between flex-1 mt-6">
-              {/* Menus */}
-
               <nav className="flex flex-col gap-y-3">
                 {menus.map((menu, i) => (
                   <Link
@@ -99,7 +94,7 @@ const DashboardMenu = () => {
 
                 <div className="w-[160px] h-[40px] rounded-lg bg-slate-700 flex justify-center items-center mt-[30px]">
                   <button
-                    // onClick={()=>dispatch(addLogout())}
+                    onClick={()=>handleLogout()}
                     className="text-[14px] text-slate-200 font-[700]"
                   >
                     Log Out
@@ -109,6 +104,7 @@ const DashboardMenu = () => {
             </div>
           </aside>
         </div>
+
       </Drawer>
     </>
   );

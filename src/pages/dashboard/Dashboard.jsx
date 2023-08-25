@@ -24,9 +24,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      
-        <ProductTable />
-    
+      <ProductTable />
     </section>
   );
 };

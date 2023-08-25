@@ -40,7 +40,7 @@ const RadialChart = () => {
           },
         },
       },
-      labels: ["Apples", "Oranges", "Bananas", "Berries"],
+      labels: ["Laptop", "Processors", "Monitor", "Motherboard"],
     },
   });
 
