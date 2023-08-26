@@ -1,3 +1,5 @@
+https://repliq-task.netlify.app/
+
 # Used Main Technologies for this project:
 
 - Frontend
